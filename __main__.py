@@ -1,4 +1,5 @@
 import os
+import sys
 from bd import contatos_duplicados
 from parser import Endereco
 
@@ -14,15 +15,18 @@ def teste_compara_enderecos():
 
 def teste_duplicados_no_banco(params: dict):
     esperado = params.pop('resultado_esperado')
-    PRIMEIRO = lambda a, b: a
+    MAIS_COMPLETO = lambda a, b: b if b.CEP else a
     if 'password' in params:
         import mysql.connector
         db = mysql.connector.connect(**params)
     else:
         import sqlite3
-        arquivo = '/users/{user}/endereco/{database}.db'.format(**params)
+        arquivo = '/{root}/{user}/Endereco/{database}.db'.format(
+            root='home' if sys.platform == 'linux' else 'users',
+            **params
+        )
         db = sqlite3.connect(arquivo, check_same_thread=False)
-    assert contatos_duplicados(2, 10, db.cursor(), PRIMEIRO) == esperado
+    assert contatos_duplicados(2, 10, db.cursor(), MAIS_COMPLETO) == esperado
 
 
 teste_compara_enderecos()
@@ -30,6 +34,6 @@ teste_compara_enderecos()
 teste_duplicados_no_banco({
     'database': 'legado', 'user': 'julio', 
     # 'password': os.environ.get('MYSQL_PASSWORD'),
-    'resultado_esperado': [10, 12, 14, 16, 18]
+    'resultado_esperado': [10, 13, 15, 17, 18]
 })
 print('*** Teste OK ***')

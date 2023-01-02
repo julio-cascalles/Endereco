@@ -9,15 +9,16 @@ def contatos_duplicados(cliente: int, limite: int, conexao, escolha: callable) -
     :limite - número máximo de endereços a serem verificados
     :conexao - conexão com o banco de dados
     :escolha - função que escolhe o endereço a ser selecionado
+    ----------------------------------------------------------
     '''
     query = """
-    select 
-        c.conteudo, c.id
-    from 
-        contato c 
-    where 
-        c.cliente = {} AND classtype = 'Endereço'
-    limit {}
+        SELECT
+            c.conteudo, c.id
+        FROM 
+            contato c 
+        WHERE 
+            c.cliente = {} AND classtype = 'Endereço'
+        LIMIT {}
     """.format(cliente, limite)
     return [
         escolha(a, b).id for a, b in itertools.combinations([
