@@ -5,10 +5,11 @@ from parser import Endereco
 def contatos_duplicados(cliente: int, limite: int, conexao, escolha: callable) -> list:
     '''
     Retorna os id´s dos contatos de endereço duplicados.
+    ----------------------------------------------------------
     :cliente - id do cliente dono dos endereços
     :limite - número máximo de endereços a serem verificados
     :conexao - conexão com o banco de dados
-    :escolha - função que escolhe o endereço a ser selecionado
+    :escolha - Função para escolher entre dois endereços iguais
     ----------------------------------------------------------
     '''
     query = """
@@ -17,7 +18,7 @@ def contatos_duplicados(cliente: int, limite: int, conexao, escolha: callable) -
         FROM 
             contato c 
         WHERE 
-            c.cliente = {} AND classtype = 'Endereço'
+            c.cliente = {} AND c.classtype = 'Endereço'
         LIMIT {}
     """.format(cliente, limite)
     return [
