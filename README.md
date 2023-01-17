@@ -8,3 +8,7 @@ Imagine que existem MILHARES de endereços duplicados no banco de dados.
 	- Ignorar acentos.
 
 > Acompanha um `banco de dados de exemplo` para usar com a função **_contatos_duplicados_**
+
+## Exemplo
+![](assets/mesmo_endereco.png)
+

@@ -31,6 +31,6 @@ INSERT INTO Contato(cliente, conteudo, classtype)VALUES
 	(2, 'Vila prof.Cavalcanti, 37 Santa Helena 61548566 sl.59 - PI', 'Endereço'),
 	(2, 'Quadra Ribeiro, 879 Vila Formosa / BA', 'Endereço'),
 	(2, 'qd.Ribeiro, 879 Vila Formosa - BA', 'Endereço'),
-	(2, 'Ladeira Emiliano de Farias, 874 sobreloja Pq.Clementina 43777-229 / GO', 'Endereço')
+	(2, 'Ladeira Emiliano de Farias, 874 sobreloja Pq.Clementina 43777-229 / GO', 'Endereço'),
 	(2, 'Ld. Emiliano de Farias, 874 Parque Clementina - GO slj.', 'Endereço')
 ;
