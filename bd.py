@@ -23,7 +23,7 @@ def contatos_duplicados(cliente: int, limite: int, conexao, escolha: callable) -
     """.format(cliente, limite)
     return [
         escolha(a, b).id for a, b in itertools.combinations([
-            Endereco(*db) for db in conexao.execute(query).fetchall()],
+            Endereco(*row) for row in conexao.execute(query).fetchall()],
             2
         ) if a == b
     ]
