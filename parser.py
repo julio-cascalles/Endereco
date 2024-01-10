@@ -11,7 +11,7 @@ class Endereco:
     def __init__(self, texto: str, id: int=0):
         self.id = id
         def extrai_cep(arr: list, i: int) -> str:
-            if i:
+            if i > 0:
                 palavras = re.split(r'(\W+)', arr[i-1])
                 arr[i-1] = ' '.join(p for p in palavras if p != 'CEP')
             return arr.pop(i)
@@ -21,20 +21,21 @@ class Endereco:
                 self.remove_acentos(texto).replace('.', ' ')
             )
         )
-        self.CEP = next(
-            (extrai_cep(arr, i)
+        self.CEP = next((
+            extrai_cep(arr, i)
             for i, c in enumerate(arr) 
-            if i % 2 and len(c) == 8),
-            ''
-        )
+            if i % 2 and len(c) == 8
+        ), '')
         complemento = ' '.join(a for a in arr if a.strip())
         self.logradouro = self.substitui_abrev(logradouro)
         self.complemento = self.substitui_abrev(complemento)
 
     @classmethod
     def substitui_abrev(cls, texto: str) -> str:
-        palavras = [cls.abreviacoes.get(t.lower(), t)
-            for t in texto.split() if t.strip()]
+        palavras = [
+            cls.abreviacoes.get(t.lower(), t)
+            for t in texto.split() if t.strip()
+        ]
         return ' '.join(palavras)
 
     @staticmethod
