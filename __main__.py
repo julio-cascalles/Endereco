@@ -16,7 +16,7 @@ def teste_compara_enderecos():
 
 def teste_duplicados_no_banco(params: dict):
     esperado = params.pop('resultado_esperado')
-    MAIS_COMPLETO = lambda a, b: b if b.CEP else a
+    MENOS_COMPLETO = lambda a, b: a if b.CEP else b # -- Escolhe o que NÃO tem o CEP
     if 'password' in params:
         import mysql.connector
         db = mysql.connector.connect(**params)
@@ -28,7 +28,7 @@ def teste_duplicados_no_banco(params: dict):
         )
         db = sqlite3.connect(arquivo, check_same_thread=False)
     assert contatos_duplicados(
-        cliente=2, limite=10, conexao=db.cursor(), escolha=MAIS_COMPLETO
+        cliente=2, limite=10, conexao=db.cursor(), escolha=MENOS_COMPLETO
     ) == esperado
 
 
