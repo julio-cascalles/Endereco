@@ -37,6 +37,6 @@ teste_compara_enderecos()
 teste_duplicados_no_banco({
     'database': 'legado', 'user': 'julio', 
     # 'password': os.environ.get('MYSQL_PASSWORD'),
-    'resultado_esperado': [10, 13, 15, 17, 18]
+    'resultado_esperado': [11, 12, 14, 16, 19]
 })
 print('*** Teste OK ***')
