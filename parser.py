@@ -49,9 +49,18 @@ class Endereco:
             ] for p in s.lower().split()
         ]
         return ' '.join(p for p in sorted(palavras))
+    
+    def info_num(self) -> dict:
+        """
+        Reúne todos os campos numéricos num único dicionário padronizado:
+        """
+        tokens = [c.strip().lower() for c in re.split(r'(\d+)', self.complemento)]
+        info = {k: v for k, v in zip(tokens[::2], tokens[1::2])}
+        info['numero'] = self.numero
+        return info
 
     def __eq__(self, outro):
-        if self.numero != outro.numero:
+        if self.info_num() != outro.info_num():
             return False
         txt1, txt2 = [e.resumo() for e in [self, outro]]
         return SequenceMatcher(None, txt1, txt2).ratio() > 0.66
